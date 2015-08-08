@@ -1,6 +1,9 @@
 # javascript-object-paraphernalia
 
+[![Build Status](https://travis-ci.org/any-code/javascript-object-paraphernalia.svg?branch=master)](https://travis-ci.org/any-code/javascript-object-paraphernalia)
+
 > Javascript object utilities such as deep clone, merge and apply because I enjoy writing code more that requiring it. 
+
 
 ## Getting Started
 
