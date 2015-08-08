@@ -1,0 +1,23 @@
+{
+  "name": "javascript-object-paraphernalia",
+  "version": "1.0.0",
+  "description": "Javascript object utilities such as deep clone, merge, apply, combine",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodeunit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/any-code/javascript-object-paraphernalia.git"
+  },
+  "keywords": ["object", "clone", "deep", "merge", "copy", "apply", "combine"],
+  "author": "Lee Tagg <lee@anycode.io>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/any-code/javascript-object-paraphernalia/issues"
+  },
+  "homepage": "https://github.com/any-code/javascript-object-paraphernalia#readme",
+  "devDependencies": {
+    "nodeunit": "^0.9.1"
+  }
+}
