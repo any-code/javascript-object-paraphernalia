@@ -2,8 +2,7 @@
 
 [![Build Status](https://travis-ci.org/any-code/javascript-object-paraphernalia.svg?branch=master)](https://travis-ci.org/any-code/javascript-object-paraphernalia)
 
-> Javascript object utilities such as deep clone, merge and apply because I enjoy writing code more that requiring it. 
-
+> Javascript object utilities such as deep clone, merge and apply. Also includes 'is' a type checking method to type check Objects, Functions and Classes
 
 ## Getting Started
 
@@ -31,40 +30,65 @@ var obj = require('javascript-object-paraphernalia'),
         }
     };
     
-    var exampleClone = obj.clone(exampleFirst);
+    /*
+     * CLONE
+     */
     
-    /* //OUTCOME   
-        exampleClone = {
-            fruit: "Apple",
-            animals: {
-                firstAnimal: "Beaver"
-            }
-        }
-    */
+    var exampleClone = obj.clone(exampleFirst);
+    // result:- 
+    //   
+    //    exampleClone = {
+    //        fruit: "Apple",
+    //       animals: {
+    //            firstAnimal: "Beaver"
+    //        }
+    //    }
+    
+    /*
+     * APPLY
+     */
     
     obj.apply(exampleFirst, exampleSecond);
+    // result:-   
+    //    exampleFirst = {
+    //        fruit: "Banana",
+    //        animals: {
+    //            firstAnimal: "Beaver"
+    //        }
+    //    }
     
-    /* //OUTCOME   
-        exampleFirst = {
-            fruit: "Banana",
-            animals: {
-                firstAnimal: "Beaver"
-            }
-        }
-    */
+    /*
+     * MERGE
+     */
     
     obj.merge(exampleFirst, exampleSecond);
+    // result:- 
+    //    exampleFirst = {
+    //        fruit: "Banana",
+    //        animals: {
+    //            firstAnimal: "Beaver",
+    //            secondAnimal: "Slow Loris",
+    //            thirdAnimal: "Elephant"
+    //        }
+    //    }
+        
+    /*
+     * IS
+     */
     
-    /* //OUTCOME 
-        exampleFirst = {
-            fruit: "Banana",
-            animals: {
-                firstAnimal: "Beaver",
-                secondAnimal: "Slow Loris",
-                thirdAnimal: "Elephant"
-            }
-        }
-    */
+    function TestClass() {}
+    var object = {},
+        testClass = new TestClass(),
+        func = function() { return false },
+        str = "I'm a string"
+
+    obj.is(object, 'Object')        // === true
+    obj.is(func, 'Function')        // === true
+    obj.is(str, 'String')           // === true
+
+    // testClass returns true to either its Class or Object
+    obj.is(testClass, 'TestClass')  // === true
+    obj.is(testClass, 'Object')     // === true     
 ```
 
 ## Copyright and license

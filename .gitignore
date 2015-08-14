@@ -25,11 +25,5 @@ build/Release
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
-
-.idea/codeStyleSettings.xml
-
-.idea/javascript-object-paraphernalia.iml
-
-.idea/jsLibraryMappings.xml
-
-.idea/libraries/javascript_object_paraphernalia_node_modules.xml
+.idea
+*.log*

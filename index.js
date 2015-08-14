@@ -18,7 +18,7 @@ function Obj() {}
  * @returns {object}
  */
 Obj.prototype.clone = function(objectToClone) {
-	return combineObjects({}, objectToClone, true, false);
+    return combineObjects({}, objectToClone, true, false);
 };
 
 /**
@@ -32,7 +32,7 @@ Obj.prototype.clone = function(objectToClone) {
  * @returns {object}
  */
 Obj.prototype.merge = function(first, second) {
-	return combineObjects(first, second);
+    return combineObjects(first, second);
 };
 
 /**
@@ -46,11 +46,30 @@ Obj.prototype.merge = function(first, second) {
  * @returns {object}
  */
 Obj.prototype.apply = function(first, second) {
-	return combineObjects(first, second, false);
+    return combineObjects(first, second, false);
 };
 
 /**
- * Combines second object with first object adhering th the flagged rules:
+ * @description returns true if the specified object is of type typeString or constructor name is of typeString
+ *
+ * @param {Object} object
+ * @param {String} typeString
+ * @returns {boolean}
+ */
+Obj.prototype.is = function(object, typeString) {
+    if (object === undefined) { return false }
+
+    if (Object.prototype.toString.call(object) === '[object Object]' &&
+        object.constructor.name === typeString) {
+        return true
+    }
+
+    return Object.prototype.toString.call(object) === '[object ' +
+        typeString[0].toUpperCase() + typeString.substr(1).toLowerCase() + ']'
+};
+
+/**
+ * @description Combines second object with first object adhering th the flagged rules:
  *
  * Flags:
  *  allowNew (true|false) -
@@ -70,31 +89,32 @@ Obj.prototype.apply = function(first, second) {
  * @returns {object}
  */
 function combineObjects(first, second, allowNew, allowReferences) {
-	if (allowNew === undefined) {
-		allowNew = true;
-	}
+    if (allowNew === undefined) {
+        allowNew = true;
+    }
 
-	if (allowReferences === undefined) {
-		allowReferences = true;
-	}
+    if (allowReferences === undefined) {
+        allowReferences = true;
+    }
 
-	for (var property in second) {
-		if (!allowNew && first[property] === undefined) {
-			continue;
-		}
+    for (var property in second) {
+        if (!allowNew && first[property] === undefined) {
+            continue;
+        }
 
-		if (second[property].constructor == Object) {
-			if (first[property] === undefined) {
-				first[property] = !allowReferences ? {} : second[property];
-			}
-			first[property] = combineObjects(first[property], second[property], allowNew, allowReferences);
+        if (second[property].constructor == Object) {
+            if (first[property] === undefined) {
+                first[property] = !allowReferences ? {} : second[property];
+            }
+            first[property] = combineObjects(first[property], second[property], allowNew, allowReferences);
 
-		} else {
-			first[property] = second[property];
+        } else {
+            first[property] = second[property];
 
-		}
-	}
+        }
+    }
 
-	return first;
+    return first;
 }
+
 module.exports = new Obj();
