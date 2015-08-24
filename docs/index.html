@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3>javascript-object-paraphernalia 1.0.2</h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>javascript-object-paraphernalia</h1><p><a href="https://travis-ci.org/any-code/javascript-object-paraphernalia"><img src="https://travis-ci.org/any-code/javascript-object-paraphernalia.svg?branch=master" alt="Build Status"></a></p>
+<blockquote>
+<p>Javascript object utilities such as deep clone, merge and apply. Also includes 'is' a type checking method to type check Objects, Functions and Classes</p>
+</blockquote>
+<h2>Getting Started</h2><h3>1. Installation</h3><pre class="prettyprint source lang-bash"><code>npm install javascript-object-paraphernalia</code></pre><h3>2. Examples</h3><p>Require javascript-object-paraphernalia</p>
+<pre class="prettyprint source lang-javascript"><code>var obj = require('javascript-object-paraphernalia')</code></pre><p>Define some objects for use with the following examples  </p>
+<pre class="prettyprint source lang-javascript"><code>var exampleFirst = {
+    fruit: &quot;Apple&quot;,
+    animals: {
+      firstAnimal: &quot;Beaver&quot;
+    }
+  },
+  exampleSecond = {
+    fruit: &quot;Banana&quot;,
+    animals: {
+      secondAnimal: &quot;Slow Loris&quot;,
+      thirdAnimal: &quot;Elephant&quot;
+    },
+    gems: {
+      firstGem: &quot;Diamond&quot;
+    }
+  };</code></pre><h4>Object clone example</h4><p>Use obj.clone to clone the first example object   </p>
+<pre class="prettyprint source lang-javascript"><code>var exampleClone = obj.clone(exampleFirst)</code></pre><p>Results:-</p>
+<pre class="prettyprint source lang-javascript"><code>exampleClone = {
+  fruit: &quot;Apple&quot;,
+  animals: {
+    firstAnimal: &quot;Beaver&quot;
+  }
+}</code></pre><p>Update the clone's inner properties</p>
+<pre class="prettyprint source lang-javascript"><code>exampleClone.fruit = &quot;Orange&quot;
+exampleClone.animals.cloneOnlyAnimal = &quot;Rabbit&quot;</code></pre><p>Compare the clone with the first example object</p>
+<pre class="prettyprint source lang-javascript"><code>exampleFirst = {
+  fruit: &quot;Apple&quot;,
+  animals: {
+    firstAnimal: &quot;Beaver&quot;
+  }
+}
+exampleClone = {
+  fruit: &quot;Orange&quot;,
+  animals: {
+    cloneOnlyAnimal: &quot;Rabbit&quot;,
+    firstAnimal: &quot;Beaver&quot;
+  }
+}</code></pre><h4>Object merge example</h4><p>Use obj.merge to merge the second example object with the first example object   </p>
+<pre class="prettyprint source lang-javascript"><code>obj.merge(exampleFirst, exampleSecond)</code></pre><p>Results:-</p>
+<pre class="prettyprint source lang-javascript"><code>{
+  fruit: &quot;Banana&quot;,
+  animals: {
+    firstAnimal: &quot;Beaver&quot;,
+    secondAnimal: &quot;Slow Loris&quot;,
+    thirdAnimal: &quot;Elephant&quot;
+  },
+  gems: {
+    firstGem: &quot;Diamond&quot;
+  }
+}</code></pre><p>Change the second example's thirdAnimal</p>
+<pre class="prettyprint source lang-javascript"><code>exampleSecond.animals.thirdAnimal = &quot;Slender Loris&quot;</code></pre><p>See that the first example's animal property has not mutated</p>
+<pre class="prettyprint source lang-javascript"><code>// exampleFirst contents:- 
+{
+  fruit: &quot;Banana&quot;,
+  animals: {
+    firstAnimal: &quot;Beaver&quot;,
+    secondAnimal: &quot;Slow Loris&quot;,
+    thirdAnimal: &quot;Elephant&quot;
+  },
+  gems: {
+    firstGem: &quot;Diamond&quot;
+  }
+}</code></pre><p>Now change the first Example's gems property</p>
+<pre class="prettyprint source lang-javascript"><code>exampleFirst.gems.firstGem = &quot;Ruby&quot;</code></pre><p>Because the gems property of the second Example was referenced by the first Example, the gems property is the same object
+on both first and second examples.</p>
+<pre class="prettyprint source lang-javascript"><code>// exampleFirst contents:- 
+{
+  fruit: &quot;Banana&quot;,
+  animals: {
+    firstAnimal: &quot;Beaver&quot;,
+    secondAnimal: &quot;Slow Loris&quot;,
+    thirdAnimal: &quot;Slender Loris&quot;
+  },
+  gems: {
+    firstGem: &quot;Ruby&quot;
+  }</code></pre><h4>Object apply example</h4><p>Use obj.apply to apply the properties of the second example object on the first example object   </p>
+<pre class="prettyprint source lang-javascript"><code>exampleSecond.animals.firstAnimal = &quot;Slow Loris&quot;
+obj.apply(exampleFirst, exampleSecond)</code></pre><p>The contents of the first object are:-</p>
+<pre class="prettyprint source lang-javascript"><code>{
+  fruit: &quot;Banana&quot;,
+  animals: {
+    firstAnimal: &quot;Slow Loris&quot;
+  }
+}</code></pre><p>See that only the first example's properties have been updated and none of the additional properties present on the
+second object have been applied</p>
+<h4>Object is example</h4><p>Declare some variables to work with in the following examples    </p>
+<pre class="prettyprint source lang-javascript"><code>function TestClass() {}
+var object = {},
+    testClass = new TestClass(),
+    func = function() { return false },
+    str = &quot;I'm a string&quot;</code></pre><p>Use obj.is to test an assertion about an object's type</p>
+<pre class="prettyprint source lang-javascript"><code>  obj.is(object, 'Object')        // === true
+  obj.is(object, 'object')        // === true
+  obj.is(func, 'Function')        // === true
+  obj.is(func, 'function')        // === true
+  obj.is(str, 'String')           // === true
+  obj.is(str, 'string')           // === true
+
+  // testClass returns true to either its Class or Object
+  obj.is(testClass, 'TestClass')  // === true
+  obj.is(testClass, 'Object')     // === true
+
+  // testing for a class name is not case insensitive  
+  obj.is(testClass, 'testclass')  // === false</code></pre><h2>Copyright and license</h2><p>Copyright (c) 2015, Any Code <a href="&#109;&#97;&#105;&#x6c;&#116;&#111;&#x3a;&#108;&#101;&#x65;&#x40;&#x61;&#x6e;&#121;&#99;&#111;&#100;&#x65;&#x2e;&#105;&#111;">&#108;&#101;&#x65;&#x40;&#x61;&#x6e;&#121;&#99;&#111;&#100;&#x65;&#x2e;&#105;&#111;</a></p>
+<p>Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Obj.html">Obj</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-obj.apply.html">obj.apply</a></li><li><a href="tutorial-obj.clone.html">obj.clone</a></li><li><a href="tutorial-obj.is.html">obj.is</a></li><li><a href="tutorial-obj.merge.html">obj.merge</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Mon Aug 24 2015 11:07:10 GMT+1000 (AEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
