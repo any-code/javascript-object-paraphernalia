@@ -60,6 +60,25 @@ Obj.prototype.apply = function(first, second) {
 };
 
 /**
+ * @description behaves identically to apply() apart from when the second value is undefined defaults will return the
+ * first value. No error will be thrown
+ *
+ * @param {object} first The first and mutable object
+ * @param {object} second The second object
+ *
+ * @returns {object} The first object with the second objects properties applied to it
+ *
+ * @tutorial obj.apply
+ */
+Obj.prototype.defaults = function(first, second) {
+  if (second === undefined) {
+    return first;
+  }
+
+  return this._combineObjects(first, second, false);
+};
+
+/**
  * @description Returns true if the specified object is of type typeAssertion or it's constructor name is of the type
  * specified by the typeAssertion
  *
