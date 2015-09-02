@@ -128,7 +128,7 @@ Obj.prototype._combineObjects = function(first, second, allowNew, allowReference
     throw new Error("First value must be an Object but was: " + first);
   }
 
-  if (!this.is(second, 'Object')) {
+  if (!this.is(second, 'Object') && second.constructor !== Array) {
     throw new Error("Second value must be an Object but was: " + second);
   }
 
@@ -146,7 +146,7 @@ Obj.prototype._combineObjects = function(first, second, allowNew, allowReference
       continue;
     }
 
-    if (second[property].constructor == Object) {
+    if (second[property] && second[property].constructor == Object) {
       if (first[property] === undefined) {
         first[property] = !allowReferences ? {} : second[property];
       }

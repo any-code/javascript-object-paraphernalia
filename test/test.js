@@ -115,5 +115,9 @@ exports.testCombineWithInvalidSecond = function(test) {
   test.done();
 }
 
+exports.testCloneArray = function(test) {
+  test.deepEqual(obj.clone([{a:1},{a:2},{a:3}]), [{a:1},{a:2},{a:3}], 'the cloned array did not match the original');
+  test.done();
+}
 
 
