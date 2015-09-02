@@ -24,7 +24,7 @@ function Obj() {}
  * @tutorial obj.clone
  */
 Obj.prototype.clone = function(objectToClone) {
-  return combineObjects({}, objectToClone, true, false);
+  return this._combineObjects({}, objectToClone, true, false);
 };
 
 /**
@@ -40,7 +40,7 @@ Obj.prototype.clone = function(objectToClone) {
  * @tutorial obj.merge
  */
 Obj.prototype.merge = function(first, second) {
-  return combineObjects(first, second);
+  return this._combineObjects(first, second);
 };
 
 /**
@@ -56,7 +56,7 @@ Obj.prototype.merge = function(first, second) {
  * @tutorial obj.apply
  */
 Obj.prototype.apply = function(first, second) {
-  return combineObjects(first, second, false);
+  return this._combineObjects(first, second, false);
 };
 
 /**
@@ -104,7 +104,16 @@ Obj.prototype.is = function(object, typeAssertion) {
  *
  * @private
  */
-function combineObjects(first, second, allowNew, allowReferences) {
+Obj.prototype._combineObjects = function(first, second, allowNew, allowReferences) {
+  if (!this.is(first, 'Object')) {
+    throw new Error("First value must be an Object but was: " + first.toString());
+  }
+
+  if (!this.is(second, 'Object')) {
+    throw new Error("Second value must be an Object but was: " + second.toString());
+  }
+
+
   if (allowNew === undefined) {
     allowNew = true;
   }
@@ -122,7 +131,7 @@ function combineObjects(first, second, allowNew, allowReferences) {
       if (first[property] === undefined) {
         first[property] = !allowReferences ? {} : second[property];
       }
-      first[property] = combineObjects(first[property], second[property], allowNew, allowReferences);
+      first[property] = this._combineObjects(first[property], second[property], allowNew, allowReferences);
 
     } else {
       first[property] = second[property];

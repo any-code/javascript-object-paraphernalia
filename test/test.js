@@ -74,6 +74,21 @@ exports.testIs = function(test){
     test.done()
 };
 
+exports.testCombineWithInvalidFirst = function(test) {
+    var first = 42,
+      second = {a: 1, c: 3};
+
+    test.throws(function() { obj.apply(first, second) }, Error, 'both values of apply must be objects');
+    test.done();
+}
+
+exports.testCombineWithInvalidSecond = function(test) {
+    var first = {a: 1, c: 3},
+      second = 42;
+
+    test.throws(function() { obj.apply(first, second) }, Error, 'both values of apply must be objects');
+    test.done();
+}
 
 
 
