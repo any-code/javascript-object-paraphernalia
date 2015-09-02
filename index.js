@@ -106,11 +106,11 @@ Obj.prototype.is = function(object, typeAssertion) {
  */
 Obj.prototype._combineObjects = function(first, second, allowNew, allowReferences) {
   if (!this.is(first, 'Object')) {
-    throw new Error("First value must be an Object but was: " + first.toString());
+    throw new Error("First value must be an Object but was: " + first);
   }
 
   if (!this.is(second, 'Object')) {
-    throw new Error("Second value must be an Object but was: " + second.toString());
+    throw new Error("Second value must be an Object but was: " + second);
   }
 
 
