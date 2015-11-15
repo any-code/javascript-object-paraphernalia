@@ -90,7 +90,9 @@ Obj.prototype.defaults = function(first, second) {
  * @tutorial obj.is
  */
 Obj.prototype.is = function(object, typeAssertion) {
-  if (object === undefined) { return false }
+  if (object === undefined) {
+    return typeAssertion === 'undefined' || typeAssertion === undefined
+  }
 
   if (Object.prototype.toString.call(object) === '[object Object]' &&
     object.constructor.name === typeAssertion) {
@@ -126,6 +128,10 @@ Obj.prototype.is = function(object, typeAssertion) {
 Obj.prototype._combineObjects = function(first, second, allowNew, allowReferences) {
   if (!this.is(first, 'Object')) {
     throw new Error("First value must be an Object but was: " + first);
+  }
+
+  if (second === undefined) {
+    second = {}
   }
 
   if (!this.is(second, 'Object') && second.constructor !== Array) {

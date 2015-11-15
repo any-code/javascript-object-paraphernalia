@@ -96,6 +96,10 @@ exports.testIs = function(test){
   test.ok(obj.is(func, 'Function'), 'is failed to identify Function')
   test.ok(obj.is(str, 'String'), 'is failed to identify String')
 
+  // special cases for undefined
+  test.ok(obj.is(undefined, 'undefined'), 'is failed to identify undefined');
+  test.ok(obj.is(undefined, undefined), 'is failed to identify undefined');
+
   test.done()
 };
 
@@ -112,6 +116,14 @@ exports.testCombineWithInvalidSecond = function(test) {
     second = 42;
 
   test.throws(function() { obj.apply(first, second) }, Error, 'both values of apply must be objects');
+  test.done();
+}
+
+exports.testCombineWithUndefinedSecond = function(test) {
+  var first = {a: 1, c: 3},
+      second = undefined;
+
+  test.deepEqual(obj.merge(first, second), first, 'the merged object did not match the original');
   test.done();
 }
 
