@@ -112,7 +112,44 @@ exports.testFlatten = function(test) {
     test.deepEqual(obj.flatten(object), expected, "\nFailed to assert flattening(" + JSON.stringify(object) +
       ") would result in the correct object");
 
+    test.equals(obj.toKeyArray(object).indexOf('a.b.c.d'), 0, "\nFailed to assert flattening(" + JSON.stringify(object) +
+      ") would result in the correct array");
+    test.equals(obj.toKeyArray(object).indexOf('d.b.c.d'), 3, "\nFailed to assert flattening(" + JSON.stringify(object) +
+      ") would result in the correct array");
     test.done()
+}
+
+exports.testKeyExists = function(test) {
+
+    var object = {
+        a: {
+            b: {
+                c1: 1,
+                c2: 2,
+                c3: 3
+            }
+        },
+        ka: {
+            dc: {
+                o1: {
+                    q1: 1,
+                    q2: 2
+                }
+            }
+        }
+    }
+    test.ok(!obj.keyExists(object, null), "fail 1")
+    test.ok(!obj.keyExists(object, undefined), "fail 2")
+    test.ok(!obj.keyExists(object, {}), "fail 3")
+    test.ok(!obj.keyExists(object, 42), "fail 4")
+    test.ok(obj.keyExists(object, 'a'), "fail 5")
+    test.ok(!obj.keyExists(object, 'b'), "fail 5.5")
+    test.ok(obj.keyExists(object, 'a.b'), "fail 6")
+    test.ok(obj.keyExists(object, 'a.b.c1'), "fail 7")
+    test.ok(!obj.keyExists(object, 'a.d.c1'), "fail 8")
+    test.ok(obj.keyExists(object, 'ka.dc.o1.q2'), "fail 9")
+    test.ok(!obj.keyExists(object, 'ka.bc.o1.q2'), "fail 10")
+    test.done();
 }
 
 exports.testMerge = function(test){

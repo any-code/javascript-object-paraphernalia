@@ -123,6 +123,36 @@ Obj.prototype.flatten = function(n, f, d, k) {
     return f;
 }
 
+Obj.prototype.toKeyArray = function(object) {
+    var flat = this.flatten(object),
+        arr = Object.keys(flat).map(function (key) {return key});
+
+    return arr;
+}
+
+Obj.prototype.keyExists = function(obj, key) {
+    if (!this.is(key, 'String'))
+        return false
+
+    var fragments = key.split('.'),
+        pass = false,
+        o, n = 0
+
+    if (fragments.length > 0) o = obj[fragments.shift()]
+    if (o === undefined) return pass
+    if (fragments.length === 0) return true
+
+    fragments.map(function (key) {
+        if (o === undefined) return
+        n++
+        o = o[fragments[n-1]]
+        if (o === undefined) pass = false
+        else if (n === fragments.length) pass = true
+    })
+
+    return pass
+}
+
 /**
  * @description Combines second object with first object adhering th the flagged rules:
  *
