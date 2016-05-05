@@ -71,6 +71,50 @@ exports.testDefaultsWithUndefined = function(test){
 };
 
 
+exports.testFlatten = function(test) {
+    var object = {
+        a: {
+            b: {
+                c: {
+                    d: "banana soup"
+                }
+            }
+        },
+        b: {
+            b: {
+                c: {
+                    d: "banana sauce"
+                }
+            }
+        },
+        c: {
+            b: {
+                c: {
+                    d: "banana broth"
+                }
+            }
+        },
+        d: {
+            b: {
+                c: {
+                    d: "banana gravy"
+                }
+            }
+        }
+    },
+    expected = {
+        'a.b.c.d': 'banana soup',
+        'b.b.c.d': 'banana sauce',
+        'c.b.c.d': 'banana broth',
+        'd.b.c.d': 'banana gravy'
+    }
+
+    test.deepEqual(obj.flatten(object), expected, "\nFailed to assert flattening(" + JSON.stringify(object) +
+      ") would result in the correct object");
+
+    test.done()
+}
+
 exports.testMerge = function(test){
   var first = {a: 1, c: 3},
     expectedFirst = {a: 1, c: 3},
@@ -131,5 +175,3 @@ exports.testCloneArray = function(test) {
   test.deepEqual(obj.clone([{a:1},{a:2},{a:3}]), [{a:1},{a:2},{a:3}], 'the cloned array did not match the original');
   test.done();
 }
-
-

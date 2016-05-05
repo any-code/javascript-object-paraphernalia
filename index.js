@@ -104,6 +104,26 @@ Obj.prototype.is = function(object, typeAssertion) {
 };
 
 /**
+ * @description Flattes the nestedness of an object
+ *
+ * @param {*} n An Object nested keys
+ */
+Obj.prototype.flatten = function(n, f, d, k) {
+    k = k || "", f = f || {}, d = d || 0
+    var nObj = n && !n.length,
+        nKeys = nObj ? Object.keys(n).length : 0;
+
+    if (nObj && nKeys > 0) {
+        var i;
+        for (i in n) {
+            if (k.split('.').length > d) { k = k.split('.').splice(0, d).join('.') }
+            k = (d == 0) ? i : k + "." + i, f = this.flatten(n[i], f, d + 1, k)
+        }
+    } else f[k] = n;
+    return f;
+}
+
+/**
  * @description Combines second object with first object adhering th the flagged rules:
  *
  * Flags:
