@@ -1,6 +1,6 @@
 {
   "name": "javascript-object-paraphernalia",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Javascript object utilities such as deep clone, merge and apply. Also includes 'is' a type checking method to type check Objects, Functions and Classes",
   "main": "index.js",
   "scripts": {
