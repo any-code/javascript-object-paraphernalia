@@ -149,6 +149,10 @@ exports.testKeyExists = function(test) {
     test.ok(!obj.keyExists(object, 'a.d.c1'), "fail 8")
     test.ok(obj.keyExists(object, 'ka.dc.o1.q2'), "fail 9")
     test.ok(!obj.keyExists(object, 'ka.bc.o1.q2'), "fail 10")
+    test.ok(!obj.keyExists(undefined, 'a'), "fail 11")
+    test.ok(!obj.keyExists(null, 'a'), "fail 12")
+    test.ok(!obj.keyExists(42, 'a'), "fail 13")
+    test.ok(!obj.keyExists('object', 'a'), "fail 14")
     test.done();
 }
 

@@ -131,7 +131,7 @@ Obj.prototype.toKeyArray = function(object) {
 }
 
 Obj.prototype.keyExists = function(obj, key) {
-    if (!this.is(key, 'String'))
+    if (obj == undefined || !obj || !this.is(key, 'String'))
         return false
 
     var fragments = key.split('.'),
